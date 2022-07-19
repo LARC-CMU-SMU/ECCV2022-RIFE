@@ -13,6 +13,8 @@ import os
 
 
 def copy_files_to_final_dir(src_dir, out_dir, first_file_name):
+    if not os.path.exists(out_dir):
+        os.makedirs(out_dir)
     first_file_number = int(first_file_name.split("/")[-1].split(".")[0])
     original_files = get_sorted_file_list(src_dir)
     for original_file in original_files:
@@ -53,5 +55,5 @@ for src_sub_dir in tqdm(get_sub_folder_list(img_dir_root)):
     for i in range(len(file_list) -1):
         command = ["python3", "inference_img.py", "--img", file_list[i], file_list[i+1], "--exp="+str(exp)]
         # print(command)
-        subprocess.run(command)
+        # subprocess.run(command)
         copy_files_to_final_dir(src_sub_dir_path, target_sub_dir_path, file_list[i])
